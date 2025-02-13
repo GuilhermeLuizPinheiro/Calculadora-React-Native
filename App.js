@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, Alert, Image } from 'react-native';
 import { useState } from 'react';
 
 export default function App() {
@@ -10,7 +10,6 @@ export default function App() {
   function somar() {
     if (valor1 == '' || valor2 == '') {
       Alert.alert('Preencha os campos!!');
-      setResultado('');
     }
     else {
       let r = parseFloat(valor1.replace(",", ".")) + parseFloat(valor2.replace(",", "."));
@@ -19,18 +18,68 @@ export default function App() {
       Keyboard.dismiss();
     }
   }
-
-
+  function subtracao() {
+    if (valor1 == '' || valor2 == '') {
+      Alert.alert('Preencha os campos!!');
+    }
+    else {
+      let r = parseFloat(valor1.replace(",", ".")) - parseFloat(valor2.replace(",", "."));
+      let resultadoFormatado = r.toFixed(2) + '';
+      setResultado(resultadoFormatado);
+      Keyboard.dismiss();
+    }
+  }
+  function multiplicacao() {
+    if (valor1 == '' || valor2 == '') {
+      Alert.alert('Preencha os campos!!');
+    }
+    else {
+      let r = parseFloat(valor1.replace(",", ".")) * parseFloat(valor2.replace(",", "."));
+      let resultadoFormatado = r.toFixed(2) + '';
+      setResultado(resultadoFormatado);
+      Keyboard.dismiss();
+    }
+  }
+  function divisao() {
+    if (valor1 == '' || valor2 == '') {
+      Alert.alert('Preencha os campos!!');
+    }
+    else {
+      let r = parseFloat(valor1.replace(",", ".")) / parseFloat(valor2.replace(",", "."));
+      let resultadoFormatado = r.toFixed(2) + '';
+      setResultado(resultadoFormatado);
+      Keyboard.dismiss();
+    }
+  }
+  function exponenciacao() {
+    if (valor1 == '' || valor2 == '') {
+      Alert.alert('Preencha os campos!!');
+    }
+    else {
+      let r = parseFloat(valor1.replace(",", ".")) ** parseFloat(valor2.replace(",", "."));
+      let resultadoFormatado = r.toFixed(2) + '';
+      setResultado(resultadoFormatado);
+      Keyboard.dismiss();
+    }
+  }
+  function limpar() {
+    setValor1('');  // Definindo como string vazia
+    setValor2('');  // Definindo como string vazia
+    setResultado('');  // Definindo como string vazia
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.container1}>
         <Text style={styles.titulo}>Programa SOMA</Text>
+        <Image
+          source={require('./assets/business-color_calculator_icon-icons.com_53466.png')} />
       </View>
       <View style={styles.container2}>
         <View style={styles.container3}>
           <Text style={styles.valor}>Valor 1</Text>
           <TextInput style={styles.textInput}
+            value={valor1}
             keyboardType="decimal-pad"
             onChangeText={(text) => setValor1(text)} textchanged
           />
@@ -38,19 +87,59 @@ export default function App() {
         <View style={styles.container3}>
           <Text style={styles.valor}>Valor 2</Text>
           <TextInput style={styles.textInput}
+            value={valor2}
             keyboardType="decimal-pad"
             onChangeText={(text) => setValor2(text)} textchanged
           />
         </View>
       </View>
-      <TouchableOpacity
-        onPress={() => somar()}
-        style={styles.botaoSoma}>
-        <Text style={styles.titulobotao}>Somar</Text>
-      </TouchableOpacity>
-      <StatusBar style="auto" />
+      <View style={styles.container2}>
+        <View>
+          <TouchableOpacity
+            onPress={() => somar()}
+            style={styles.botaoSoma}>
+            <Text style={styles.titulobotao}>+</Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <TouchableOpacity
+            onPress={() => subtracao()}
+            style={styles.botaoSoma}>
+            <Text style={styles.titulobotao}>-</Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <TouchableOpacity
+            onPress={() => multiplicacao()}
+            style={styles.botaoSoma}>
+            <Text style={styles.titulobotao}>x</Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <TouchableOpacity
+            onPress={() => divisao()}
+            style={styles.botaoSoma}>
+            <Text style={styles.titulobotao}>/</Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <TouchableOpacity
+            onPress={() => exponenciacao()}
+            style={styles.botaoSoma}>
+            <Text style={styles.titulobotao}>^</Text>
+          </TouchableOpacity>
+        </View>
+        
+      </View>
       <Text style={styles.resultado}>{resultado}</Text>
-
+      <View>
+          <TouchableOpacity
+            onPress={() => limpar()}
+            style={styles.botaoSoma}>
+            <Text style={styles.titulobotao}>Limpar</Text>
+          </TouchableOpacity>
+          <StatusBar style="auto" />
+        </View>
     </View>
   );
 }
@@ -70,6 +159,10 @@ const styles = StyleSheet.create({
   },
   container3: {
     width: '45%',
+  },
+  container5: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   titulo: {
     fontSize: 30,
